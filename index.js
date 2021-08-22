@@ -29,6 +29,11 @@ data.update('test', 'newFile', { name: 'England', language: 'English' }, (err) =
     console.log(err);
 });
 
+// deleting data
+data.delete('test', 'newFile', (err) => {
+    console.log(err);
+});
+
 // create server
 app.createServer = () => {
     const server = http.createServer(app.handleReqRes);
