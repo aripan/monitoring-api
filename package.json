@@ -1,7 +1,7 @@
 {
-  "name": "intro-project-for-nodejs",
+  "name": "monitoring-api",
   "version": "1.0.0",
-  "description": "Follow this structure of nodejs project for all upcoming projects in nodejs",
+  "description": "A RESTful API to monitor up or down time of user defined links",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index",
