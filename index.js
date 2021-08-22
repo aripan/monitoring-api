@@ -24,6 +24,11 @@ data.read('test', 'newFile', (err, result) => {
     console.log(err, result);
 });
 
+// updating data
+data.update('test', 'newFile', { name: 'England', language: 'English' }, (err) => {
+    console.log(err);
+});
+
 // create server
 app.createServer = () => {
     const server = http.createServer(app.handleReqRes);
