@@ -1,6 +1,6 @@
 /*
- * Title: Uptime Monitoring Application
- * Description: A RESTful API to monitor up or down time of user defined links
+ * Title: Handle Request Response
+ * Description: Handle Resquest and response
  * Author: Md Asaduzzaman Ripan
  * Date: 22/08/2021
  */
@@ -8,6 +8,8 @@
 // dependencies
 const url = require('url');
 const { StringDecoder } = require('string_decoder');
+const routes = require('../routes');
+const { notFoundHandler } = require('../handlers/routeHandlers/notFoundHandler');
 
 // handler object - module scaffolding
 const handler = {};
@@ -22,9 +24,33 @@ handler.handleReqRes = (req, res) => {
     const queryStringObject = parsedUrl.query;
     const headersObject = req.headers;
 
+    // all parsed request properties are added in an object as properties
+    const requestProperties = {
+        parsedUrl,
+        path,
+        trimmedPath,
+        method,
+        queryStringObject,
+        headersObject,
+    };
+
     // decoding the raw data from req.body
     const decoder = new StringDecoder('utf-8');
     let realData = '';
+
+    // checking whether the routeHandler exist or not?
+    const chosenHandler = routes[trimmedPath] ? routes[trimmedPath] : notFoundHandler;
+
+    chosenHandler(requestProperties, (statusCode, payload) => {
+        statusCode = typeof statusCode === 'number' ? statusCode : 500;
+        payload = typeof payload === 'object' ? payload : {};
+
+        const payloadString = JSON.stringify(payload);
+
+        // return the final response
+        res.writeHead(statusCode);
+        res.end(payloadString);
+    });
 
     req.on('data', (buffer) => {
         realData += decoder.write(buffer);
