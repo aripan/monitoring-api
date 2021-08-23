@@ -2,7 +2,7 @@
  * Title: Token Handler
  * Description: Handler to handle token related routes
  * Author: Md Asaduzzaman Ripan
- * Date: 22/08/2021
+ * Date: 23/08/2021
  */
 // dependencies
 const data = require('../../lib/data');
